@@ -1,7 +1,7 @@
 const express = require('express'); //importamos express
 const router = express.Router(); //instanciamos un router
 
-const prisma = require('../prisma'); //importamos prisma
+const prisma = require('../prisma/prisma'); //importamos prisma
 
 
 // Obtener todos los libros
@@ -55,6 +55,8 @@ router.get('/price/:price', async (req, res) => {
         res.status(500).json({ error: 'Error al obtener los libros' });
     }
 });
+//dame la ruta
+// get /books/with-sales
 
 // Obtener los libros con sus ventas
 router.get('/with-sales', async (req, res) => {

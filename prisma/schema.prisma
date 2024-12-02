@@ -1,31 +1,25 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")  // La URL de tu base de datos en .env
 }
 
-//I just added the following models
-
+// Modelo de Libro
 model Libro {
-  ISBN       String   @id @default(uuid())
+  ISBN       String   @id  // Definimos ISBN como la clave primaria (no generada por uuid())
   Titulo     String
   Autor      String
   Precio     Float
-  Ventas     Venta[]
+  Ventas     Venta[]   // Relación con la tabla Venta
 }
 
+// Modelo de Venta
 model Venta {
   ID_Venta    Int      @id @default(autoincrement())
-  Libro       Libro    @relation(fields: [ISBN], references: [ISBN])
+  Libro       Libro    @relation(fields: [ISBN], references: [ISBN]) // Relación con Libro
   ISBN        String
   Fecha_Venta DateTime
   Cantidad    Int

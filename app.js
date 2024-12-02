@@ -1,41 +1,31 @@
-/* const express = require("express");
-const app = express();
-const PORT = 3000;
-const morgan = require("morgan");
-app.use(morgan('dev'));
-app.use(express.json());
-const router = require('./routes');
-app.use('/', router);
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-}); */
+require('dotenv').config(); // Importamos dotenv
 
-// He agregado morgan y cambiado en nombre de la constante a routes
-
-const express = require('express'); //importamos express
-const app = express(); //instanciamos express
-const PORT = 3000; //definimos el puerto
-
-const routes = require('./routes'); //importamos el router de routes
-const morgan = require("morgan"); //importamos morgan
+const express = require('express'); // Importamos express
+const morgan = require('morgan'); // Importamos morgan
 
 
+const routes = require('./routes/index'); // Importamos el router de routes
 
+const app = express(); // Instanciamos express
+const PORT = process.env.PORT || 3000;// Definimos el puerto
 
-app.use(express.json()); //usamos express.json()
-app.use(morgan('dev')); //usamos morgan con el formato 'dev'
+// Middlewares generales
+app.use(express.json()); // Middleware para manejar JSON
+app.use(morgan('dev')); // Middleware para loguear peticiones en formato 'dev'
 
+// Rutas
+app.use('/', routes); // Usamos el router de routes
 
-app.use('/', routes); //usamos el router de routes
-
-//manejador de errores
+// Manejador de errores 404
 app.use((req, res) => {
   res.status(404).json({ error: 'Ruta no encontrada' });
 });
 
+// Iniciar el servidor
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
+
 
 
 

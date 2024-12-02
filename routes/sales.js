@@ -1,6 +1,5 @@
 const express = require('express'); //importamos express
 const router = express.Router(); //instanciamos un router
-
 const prisma = require('../prisma/prisma'); //importamos prisma
 
 
